@@ -20,15 +20,15 @@
     <div>
         <div class="topStats">
             <div class="wordCount">
-                <span id="wc-10" onclick="alert();">10</span>
+                <span id="wc-10" onclick="wordCountChange(this)">10</span>
                 <text> / </text>
-                <span id="wc-25" onclick="">25</span>
+                <span id="wc-25" onclick="wordCountChange(this)">25</span>
                 <text> / </text>
-                <span id="wc-50" onclick="">50</span>
+                <span id="wc-50" onclick="wordCountChange(this)">50</span>
                 <text> / </text>
-                <span id="wc-100" onclick="">100</span>
+                <span id="wc-100" onclick="wordCountChange(this)">100</span>
                 <text> / </text>
-                <span id="wc-250" onclick="">250</span>
+                <span id="wc-250" onclick="wordCountChange(this)">250</span>
             </div>
             <div>
                 <text>WPM: </text>
@@ -38,11 +38,11 @@
             </div>
         </div>
         <div class="ui raised segment secondary">
-            <span>To Type Words Here</span>
+            <span id="displayWords">To Type Words Here</span>
             <div class="">
                 <div class="ui input fluid">
                     <input type="text">
-                    <button class="ui right labeled icon button">
+                    <button class="ui right labeled icon button" onclick="updateWords()">
                         <i class="redo icon"></i>
                         Redo
                     </button>
