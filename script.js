@@ -11,7 +11,10 @@ $(function(){
 
     // space should clear word and move on to the next one
     let wordInput = $("#wordInput");
-    wordInput.keyup(function(key){
+
+    // keydown means space is in next input bar
+    // keyup and you can type faster than it
+    wordInput.keydown(function(key){
         // on spacebar press clear word on onto next
         if (key.which == 32){
             // append typed word to their list, strip last space away
@@ -25,12 +28,13 @@ $(function(){
 function wordSelection(wordCount) {
     let selectedWords = [];
 
+    // randomly select x amount of words from the full english word list and append to selected word list
     for (let i = 0; i < wordCount; i++){
         selectedWords.push(englishWords[Math.floor(Math.random() * englishWords.length)]);
     }
 
-    // fill in span with selectedWord array with commas replaced with spaces
-    $("#displayWords").text(selectedWords.toString().replace(/,/g, ' '));
+    // fill in span with selectedWord array, with each word in a separate span
+    $("#displayWords").html("<span>" + selectedWords.toString().replace(/,/g, '</span><span>') + "</span>");
 }
 
 function wordCountChange(element){
@@ -47,4 +51,8 @@ function updateWords(){
     // change current word
 
     // reset WPM and ACC
+}
+
+function correctWord(){
+
 }

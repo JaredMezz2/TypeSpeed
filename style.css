@@ -21,6 +21,16 @@
     cursor: pointer;
 }
 
+#displayWords {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+/*style each individual word span*/
+#displayWords > span {
+    padding: 2px 5px;
+}
+
 /*middle box styling*/
 div:nth-child(2) > div{
     padding: 1%;
