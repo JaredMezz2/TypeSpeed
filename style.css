@@ -1,0 +1,21 @@
+#homepage {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+}
+
+#homepage > div {
+    min-width: 50vw;
+}
+
+.topStats {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wordCount > span:hover {
+    cursor: pointer;
+}

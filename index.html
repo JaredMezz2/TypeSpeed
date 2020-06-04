@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Type Speed</title>
+
+    <!--Stylesheet & Semantic-UI & JQuery-->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css">
+    <script
+            src="https://code.jquery.com/jquery-3.5.1.min.js"
+            integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+            crossorigin="anonymous">
+    </script>
+    <script src="script.js"></script>
+</head>
+<body>
+<div id="homepage">
+    <div><h1>Type Speed</h1></div>
+    <div>
+        <div class="topStats">
+            <div class="wordCount">
+                <span id="wc-10" onclick="alert();">10</span>
+                <text> / </text>
+                <span id="wc-25" onclick="">25</span>
+                <text> / </text>
+                <span id="wc-50" onclick="">50</span>
+                <text> / </text>
+                <span id="wc-100" onclick="">100</span>
+                <text> / </text>
+                <span id="wc-250" onclick="">250</span>
+            </div>
+            <div>
+                <text>WPM: </text>
+                <span id="wpm">XX</span>
+                <text> / ACC: </text>
+                <span id="acc">XX</span>
+            </div>
+        </div>
+        <div class="ui raised segment secondary">
+            <span>To Type Words Here</span>
+            <div class="">
+                <div class="ui input fluid">
+                    <input type="text">
+                    <button class="ui right labeled icon button">
+                        <i class="redo icon"></i>
+                        Redo
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div><h3>Jared M.</h3></div>
+</div>
+</body>
+</html>
