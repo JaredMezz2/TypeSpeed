@@ -8,7 +8,8 @@
 }
 
 #homepage > div {
-    width: 50vw;
+    max-width: 55vw;
+    padding: 1%;
 }
 
 .topStats {
@@ -18,4 +19,10 @@
 
 .wordCount > span:hover {
     cursor: pointer;
+}
+
+/*middle box styling*/
+div:nth-child(2) > div{
+    padding: 1%;
+    min-height: 1vh;
 }
