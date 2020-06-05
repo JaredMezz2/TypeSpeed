@@ -53,8 +53,6 @@ $(function(){
         } else {
             letterIndex += 1;
         }
-        // letterIndex = (key.which == 8) ? letterIndex - 1 : letterIndex + 1;
-        console.log(letterIndex);
 
         // on spacebar press clear word on onto next
         if (key.which == 32){
@@ -81,7 +79,12 @@ $(function(){
     });
 });
 
+// wordSelection Method - Takes int wordCount
+// Resets previous selected words and randomly selected another x amount based on wordCount
+// also displays them all in their own individual spans
 function wordSelection(wordCount) {
+    // reset selected word array
+    selectedWords = [];
     // randomly select x amount of words from the full english word list and append to selected word list
     for (let i = 0; i < wordCount; i++){
         selectedWords.push(englishWords[Math.floor(Math.random() * englishWords.length)]);
@@ -91,6 +94,9 @@ function wordSelection(wordCount) {
     $("#displayWords").html("<span>" + selectedWords.toString().replace(/,/g, '</span><span>') + "</span>");
 }
 
+// wordCountChange Method - Takes html element
+// Called when a new word count number is clicked
+// Updates the wordCount variable, changes underline and regenerates words
 function wordCountChange(element){
     // update current wordCount variable
     wordCount = element.textContent;
@@ -107,10 +113,13 @@ function wordCountChange(element){
     updateWords();
 }
 
+// updateWords Function
+// Call to do the following;
+//      - reset selected words with current wordCount & display them
+//      - set currentWord and highlight
+//      - clear input
+//      - reset WPM and ACC
 function updateWords(){
-    // reset selected word array
-    selectedWords = [];
-
     // reset words in box with current wordcount
     wordSelection(wordCount);
 
@@ -124,19 +133,7 @@ function updateWords(){
     // clear any highlight
     wordInput.removeClass("wrongInput");
 
-    currentWord.each(function(){
-        console.log($(this).text());
-    });
-
     // reset WPM and ACC
     clearInterval(wpmTimer);
     timerLength = 0;
-}
-
-function correctWord(){
-
-}
-
-function getCurWord(currentWord){
-
 }
