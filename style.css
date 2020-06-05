@@ -36,3 +36,7 @@ div:nth-child(2) > div{
     padding: 1%;
     min-height: 1vh;
 }
+
+.highlight {
+    color: mediumpurple;
+}
