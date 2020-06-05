@@ -2,7 +2,8 @@ const englishWords = ["as", "I", "his", "that", "he", "was", "for", "on", "are",
 let wordCount = 50; // default word selection
 let userWords = [];
 let started = false;
-let currentIndex = 0;
+let letterIndex = 0;
+let wordIndex = 0;
 let currentWord = "";
 let wordInput = "";
 
@@ -13,6 +14,11 @@ $(function(){
     // set word selection
     wordSelection(wordCount);
 
+    // set current word and highlight it
+    currentWord = $("#displayWords span:eq(0)");
+    currentWord.toggleClass("highlight");
+
+    // KEYDOWN IS NOT UPDATING WRONG HIGHLIGHT ON CLICK SINCE KEY UP HASNT PUT IT INTO THE INPUT YET
 
     // keydown means space is in next input bar
     // keyup and you can type faster than it
@@ -20,25 +26,20 @@ $(function(){
         // on first keypress start the timer
         if (!started){
             console.log("first run");
-            // set current word to first of generated
-            currentWord = $("#displayWords span:eq(0)").text();
-            console.log(currentWord);
-            // if first word to type, start timer
             started = true;
         }
 
         // highlight box red if incorrect letter typed
-        console.log("word: " + currentWord);
-        console.log("text: " + $("#displayWords span:eq(0)").text());
-        console.log(currentWord[currentIndex]);
-        console.log(wordInput.text());
+        console.log("word: " + currentWord.text());
+        console.log("testing: " + currentWord.text()[0]);
+        console.log(wordInput.val());
         console.log(wordInput.text().slice(-1));
-        if (currentWord[currentIndex] !== wordInput.text().slice(-1)) {
+        if (currentWord.text()[letterIndex] !== wordInput.text().slice(-1)) {
             wordInput.toggleClass("wrongInput");
         }
 
-        // increment word index
-        currentIndex += 1;
+        // increment letter index
+        letterIndex += 1;
 
         // on spacebar press clear word on onto next
         if (key.which == 32){
@@ -47,7 +48,12 @@ $(function(){
             // clear the box for the next word
             wordInput.val("");
             // reset word index
-            currentIndex = 0;
+            letterIndex = 0;
+
+            // move current word to the next
+            wordIndex += 1;
+            currentWord = $("#displayWords span:eq(" + wordIndex + ")");
+            currentWord.toggleClass("highlight");
         }
     });
 });
@@ -65,7 +71,18 @@ function wordSelection(wordCount) {
 }
 
 function wordCountChange(element){
+    // update current wordCount variable
     wordCount = element.textContent;
+
+    // remove previous underline from the selected count
+    $(".wordCount span").each(function(){
+        $(this).removeClass("selectedCount");
+    });
+
+    // add underline to the newly selected number of words
+    $(element).addClass("selectedCount");
+
+    // regenerate words
     updateWords();
 }
 
@@ -74,7 +91,7 @@ function updateWords(){
     wordSelection(wordCount);
 
     // set current word to first
-    currentWord = $("#displayWords span:eq(0)");
+    currentWord = $("#displayWords span:eq(0)");    // SETTING THIS AS ELEMENT
     currentWord.toggleClass("highlight");
 
     // clear text input
