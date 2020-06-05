@@ -31,15 +31,14 @@ $(function(){
 
         // highlight box red if incorrect letter typed
         console.log("word: " + currentWord.text());
-        console.log("testing: " + currentWord.text()[0]);
+        console.log("testing: " + currentWord.text()[letterIndex]);
         console.log(wordInput.val());
-        console.log(wordInput.text().slice(-1));
         if (currentWord.text()[letterIndex] !== wordInput.text().slice(-1)) {
             wordInput.toggleClass("wrongInput");
         }
 
-        // increment letter index
-        letterIndex += 1;
+        // increment letter index on new key, decrement on back space
+        letterIndex = (key.which == 8) ? letterIndex - 1 : letterIndex + 1;
 
         // on spacebar press clear word on onto next
         if (key.which == 32){
