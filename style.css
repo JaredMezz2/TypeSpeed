@@ -43,7 +43,7 @@ div:nth-child(2) > div{
 }
 
 .wrongInput {
-    background: rgba(193, 66, 66, 0.64);
+    background: rgba(193, 66, 66, 0.64) !important;
 }
 
 .selectedCount {
