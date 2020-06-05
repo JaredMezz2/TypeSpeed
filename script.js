@@ -3,10 +3,12 @@ let wordCount = 50; // default word selection
 let userWords = [];
 let started = false;
 let currentIndex = 0;
+let currentWord = "";
+let wordInput = "";
 
 $(function(){
     console.log("ready!");
-    let wordInput = $("#wordInput");    // select text input
+    wordInput = $("#wordInput");    // select text input
 
     // set word selection
     wordSelection(wordCount);
@@ -17,8 +19,10 @@ $(function(){
     wordInput.keydown(function(key){
         // on first keypress start the timer
         if (!started){
+            console.log("first run");
             // set current word to first of generated
-            let currentWord = $("#displayWords span:eq(0)").text();
+            currentWord = $("#displayWords span:eq(0)").text();
+            console.log(currentWord);
             // if first word to type, start timer
             started = true;
         }
@@ -30,7 +34,7 @@ $(function(){
         console.log(wordInput.text());
         console.log(wordInput.text().slice(-1));
         if (currentWord[currentIndex] !== wordInput.text().slice(-1)) {
-            wordInput.css("background", "rgba(193, 66, 66, 0.64");
+            wordInput.toggleClass("wrongInput");
         }
 
         // increment word index
@@ -70,9 +74,16 @@ function updateWords(){
     wordSelection(wordCount);
 
     // set current word to first
-    $("#displayWords span:eq(0)").toggleClass("highlight");
+    currentWord = $("#displayWords span:eq(0)");
+    currentWord.toggleClass("highlight");
 
-    $("#displayWords span:eq(0)").each(function(){
+    // clear text input
+    wordInput.val("");
+
+    // clear any highlight
+    wordInput.removeClass("wrongInput");
+
+    currentWord.each(function(){
         console.log($(this).text());
     });
 

@@ -40,3 +40,7 @@ div:nth-child(2) > div{
 .highlight {
     color: mediumpurple;
 }
+
+.wrongInput {
+    background: rgba(193, 66, 66, 0.64);
+}
