@@ -9,6 +9,8 @@ let currentWord = "";
 let wordInput = "";
 let wpmTimer;
 let timerLength = 0;
+let corrWords = 0;
+let userFinalWord = "";
 
 $(function(){
     console.log("ready!");
@@ -54,16 +56,28 @@ $(function(){
             letterIndex += 1;
         }
 
+        // SPACEBAR
         // on spacebar press clear word on onto next
-        if (key.which == 32){
+        if (key.which === 32){
             // LAST CASE, LAST WORD IN selectedWords
             if (selectedWords[wordIndex] === selectedWords[selectedWords.length - 1]) {
                 clearInterval(wpmTimer);
                 alert(timerLength);
+                alert(corrWords);
+                userWords.forEach(function(word){
+                    console.log(word);
+                })
             }
 
-            // append typed word to their list, strip last space away
-            userWords.push(wordInput.val().trim());
+           // append typed word to their list, strip last space away
+            userFinalWord = wordInput.val().trim();
+            userWords.push(userFinalWord);
+
+            // TODO: this on keyup, not currently registering full finalword, not saving to array right either
+            if (userFinalWord === currentWord.text()){
+                corrWords += 1;
+            }
+
             // clear the box for the next word
             wordInput.val("");
             // reset word index
@@ -136,4 +150,7 @@ function updateWords(){
     // reset WPM and ACC
     clearInterval(wpmTimer);
     timerLength = 0;
+
+    // reset correct words
+    corrWords = 0;
 }
