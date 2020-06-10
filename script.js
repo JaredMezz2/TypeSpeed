@@ -3,7 +3,6 @@ let wordCount = 50; // default word selection
 let userWords = [];
 let selectedWords = [];
 let started = false;
-let letterIndex = 0;
 let wordIndex = 0;
 let currentWord = "";
 let wordInput = "";
@@ -26,9 +25,8 @@ $(function(){
     // KEYDOWN IS NOT UPDATING WRONG HIGHLIGHT ON CLICK SINCE KEY UP HASNT PUT IT INTO THE INPUT YET
     //keyup still tracks index properly.
 
-    wordInput.on('input',function(e){
-        curUserWord = $(this).val();
-        console.log($(this).val());     // to get value of text box
+    wordInput.on('input',function(){
+        curUserWord = $(this).val();    // current value in textbox
 
        // on first input start the timer
         if (!started){
@@ -45,6 +43,7 @@ $(function(){
             wordInput.addClass("wrongInput");
         }
 
+        // space key
         if (curUserWord.slice(-1) === " "){
             curUserWord.trim();
             // last word case
@@ -69,72 +68,6 @@ $(function(){
             currentWord.toggleClass("highlight");
         }
     });
-
-    // keydown means space is in next input bar
-    // keyup and you can type faster than it
-    // wordInput.keyup(function(key){
-    //     // on first keypress start the timer
-    //     if (!started){
-    //         wpmTimer = setInterval(function(){
-    //             timerLength += 1;
-    //         }, 1000);
-    //         started = true;
-    //     }
-    //
-    //     // highlight box red if incorrect letter typed
-    //     if (currentWord.text()[letterIndex] !== wordInput.val().slice(letterIndex)) {
-    //         wordInput.addClass("wrongInput");
-    //     }
-    //
-    //     // DELETE KEY
-    //     // Decrement letterindex when clicked, also check for wordInput now being valid
-    //     if(key.which == 8){
-    //         letterIndex -= 1;
-    //         // if delete, check need to remove wronginput field. compare two words
-    //         console.log("wordInput: " + wordInput.val().slice(0, letterIndex));
-    //         console.log("currentWord: " + currentWord.text().slice(0, letterIndex));
-    //         if(wordInput.val().slice(0, letterIndex) === currentWord.text().slice(0, letterIndex)) {
-    //             wordInput.removeClass("wrongInput");
-    //         }
-    //     } else {
-    //         letterIndex += 1;
-    //     }
-    //
-    //     // SPACEBAR
-    //     // on spacebar press clear word on onto next
-    //     if (key.which === 32){
-    //         // LAST CASE, LAST WORD IN selectedWords
-    //         if (selectedWords[wordIndex] === selectedWords[selectedWords.length - 1]) {
-    //             clearInterval(wpmTimer);
-    //             alert(timerLength);
-    //             alert(corrWords);
-    //             userWords.forEach(function(word){
-    //                 console.log(word);
-    //             })
-    //         }
-    //
-    //        // append typed word to their list, strip last space away
-    //         userFinalWord = wordInput.val().trim();
-    //         userWords.push(userFinalWord);
-    //
-    //         // TODO: this on keyup, not currently registering full finalword, not saving to array right either
-    //         if (userFinalWord === currentWord.text()){
-    //             corrWords += 1;
-    //         }
-    //
-    //         // clear the box for the next word
-    //         wordInput.val("");
-    //         // reset word index
-    //         letterIndex = 0;
-    //         // reset highlight
-    //         wordInput.removeClass("wrongInput");
-    //
-    //         // move current word to the next
-    //         wordIndex += 1;
-    //         currentWord = $("#displayWords span:eq(" + wordIndex + ")");
-    //         currentWord.toggleClass("highlight");
-    //     }
-    // });
 });
 
 // wordSelection Method - Takes int wordCount
