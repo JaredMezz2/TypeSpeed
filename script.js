@@ -5,23 +5,19 @@ let started = false;
 let wordIndex = 0;
 let currentWord = "";
 let wordInput = "";
-let wpmTimer, wpmDisplay;
+let wpmTimer, wpmDisplay, accDisplay;
 let timerLength = 0;
 let corrWords = 0;
-let corrChar = 0, totalCorrChar = 0;
+let totalChar = 0, corrChar = 0, totalCorrChar = 0;
 let curUserWord = "";
 
 $(function(){
-    console.log("ready!");
     wordInput = $("#wordInput");    // select text input
-    wpmDisplay = $("#wpm");
+    wpmDisplay = $("#wpm");         // select wpm display
+    accDisplay = $("#acc");         // select acc display
 
     // set word selection
     wordSelection(wordCount);
-
-    // set current word and highlight it
-    currentWord = $("#displayWords span:eq(0)");
-    currentWord.toggleClass("highlight");
 
     // KEYDOWN IS NOT UPDATING WRONG HIGHLIGHT ON CLICK SINCE KEY UP HASNT PUT IT INTO THE INPUT YET
     //keyup still tracks index properly.
@@ -48,6 +44,7 @@ $(function(){
         if (curUserWord.slice(-1) === " "){
             curUserWord = $.trim(curUserWord);
 
+            // used to count total correct characters, needed for ACC calculation
             for (let i = 0; i < curUserWord.length; i++){
                 if (curUserWord.charAt(i) === currentWord.text().charAt(i)) {
                     totalCorrChar += 1;
@@ -61,17 +58,16 @@ $(function(){
                 // display WPM and ACC
                 // WPM == (Corrected CPM (only counts correct words) / 5) / time(minutes)
                 wpmDisplay.text(Math.round((corrChar / 5) / (wpmTimer / 60)));
-                console.log("WPM: " + ((corrChar / 5) / (wpmTimer / 60)));
-                console.log("char " + corrChar);
-                console.log("time " + wpmTimer);
-                console.log("total: " + totalCorrChar);
+                // ACC == total correct characters / total characters
+                // loop through all selected words and get total characters
+                $.each(selectedWords, function(key, word){
+                    totalChar += word.length;
+                });
+                accDisplay.text(Math.round(totalCorrChar / totalChar * 100));
             }
 
             // increment corWords if correct
-            console.log("user : " + curUserWord);
-            console.log("test : " + currentWord.text());
             if (curUserWord === currentWord.text()) {
-                console.log("correct");
                 corrWords += 1;
                 corrChar += curUserWord.length;
                 // style green if correct
@@ -106,6 +102,10 @@ function wordSelection(wordCount) {
 
     // fill in span with selectedWord array, with each word in a separate span
     $("#displayWords").html("<span>" + selectedWords.toString().replace(/,/g, '</span><span>') + "</span>");
+
+    // set current word and highlight it on startup
+    currentWord = $("#displayWords span:eq(0)");
+    currentWord.toggleClass("highlight");
 }
 
 // wordCountChange Method - Takes html element
@@ -137,10 +137,6 @@ function updateWords(){
     // reset words in box with current wordcount
     wordSelection(wordCount);
 
-    // set current word to first
-    currentWord = $("#displayWords span:eq(0)");    // SETTING THIS AS ELEMENT
-    currentWord.toggleClass("highlight");
-
     // clear text input
     wordInput.val("");
 
@@ -149,9 +145,16 @@ function updateWords(){
 
     // reset WPM and ACC
     clearInterval(wpmTimer);
-    timerLength = 0;
+    wpmDisplay.text("XX");
+    accDisplay.text("XX");
 
-    // reset correct words & chars
+
+    // reset timing variables
+    timerLength = 0;
     corrWords = 0;
     corrChar = 0;
+    totalChar = 0;
+    totalCorrChar = 0;
+    wordIndex = 0;
+    started = false;
 }
