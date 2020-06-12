@@ -10,11 +10,31 @@ let timerLength = 0;
 let corrWords = 0;
 let totalChar = 0, corrChar = 0, totalCorrChar = 0;
 let curUserWord = "";
+let wpm = 0, acc = 0, highscore = 0;
+let highscoreDisplay;
+let cookies = document.cookie;
+
 
 $(function(){
-    wordInput = $("#wordInput");    // select text input
-    wpmDisplay = $("#wpm");         // select wpm display
-    accDisplay = $("#acc");         // select acc display
+    wordInput = $("#wordInput");        // select text input
+    wpmDisplay = $("#wpm");             // select wpm display
+    accDisplay = $("#acc");             // select acc display
+    highscoreDisplay = $("#highscore"); // select highscore display
+
+    // COOKIES
+    // check if cookie has been set before
+    if (cookies.search("highscore") < 0){
+        // if not set default highscore. this is to avoid resetting cookie everytime
+        document.cookie = "highscore=0";
+    }
+    // update cookie variable, not sure if necessary
+    cookies = document.cookie;
+
+    // update highscore variable, grab from = in cookie to end of string which is the val
+    highscore = cookies.slice(cookies.search("=") + 1, cookies.length);
+
+    // set current highscore
+    highscoreDisplay.text(highscore);
 
     // set word selection
     wordSelection(wordCount);
@@ -57,13 +77,24 @@ $(function(){
                 clearInterval(wpmTimer);
                 // display WPM and ACC
                 // WPM == (Corrected CPM (only counts correct words) / 5) / time(minutes)
-                wpmDisplay.text(Math.round((corrChar / 5) / (wpmTimer / 60)));
+                wpm = Math.round((corrChar / 5) / (timerLength / 60));
+                wpmDisplay.text(wpm);
                 // ACC == total correct characters / total characters
                 // loop through all selected words and get total characters
                 $.each(selectedWords, function(key, word){
                     totalChar += word.length;
                 });
-                accDisplay.text(Math.round(totalCorrChar / totalChar * 100));
+                acc = Math.round(totalCorrChar / totalChar * 100);
+                accDisplay.text(acc);
+
+                // update cookie with highscore if highest
+                if (wpm > highscore) {
+                    highscore = wpm;
+                    cookies = `highscore=${highscore}`;
+
+                    // update bottom display
+                    highscoreDisplay.text(highscore);
+                }
             }
 
             // increment corWords if correct

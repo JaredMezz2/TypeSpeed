@@ -15,9 +15,10 @@
 .topStats {
     display: flex;
     justify-content: space-between;
+
 }
 
-.topStats {
+.stats {
     font-size: 1.2em;
 }
 
