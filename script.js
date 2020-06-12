@@ -5,13 +5,12 @@ let started = false;
 let wordIndex = 0;
 let currentWord = "";
 let wordInput = "";
-let wpmTimer, wpmDisplay, accDisplay;
+let wpmTimer, wpmDisplay, accDisplay, highscoreDisplay;
 let timerLength = 0;
 let corrWords = 0;
 let totalChar = 0, corrChar = 0, totalCorrChar = 0;
 let curUserWord = "";
 let wpm = 0, acc = 0, highscore = 0;
-let highscoreDisplay;
 let cookies = document.cookie;
 
 
@@ -25,6 +24,7 @@ $(function(){
     // check if cookie has been set before
     if (cookies.search("highscore") < 0){
         // if not set default highscore. this is to avoid resetting cookie everytime
+        console.log("in here");
         document.cookie = "highscore=0";
     }
     // update cookie variable, not sure if necessary
@@ -89,8 +89,9 @@ $(function(){
 
                 // update cookie with highscore if highest
                 if (wpm > highscore) {
+                    console.log("new high score");
                     highscore = wpm;
-                    cookies = `highscore=${highscore}`;
+                    document.cookie = `highscore=${highscore}`;
 
                     // update bottom display
                     highscoreDisplay.text(highscore);
