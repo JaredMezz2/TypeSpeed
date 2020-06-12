@@ -15,7 +15,6 @@ let highscoreDisplay;
 let cookies = document.cookie;
 
 
-
 $(function(){
     wordInput = $("#wordInput");        // select text input
     wpmDisplay = $("#wpm");             // select wpm display
@@ -32,7 +31,6 @@ $(function(){
     cookies = document.cookie;
 
     // update highscore variable, grab from = in cookie to end of string which is the val
-    console.log();
     highscore = cookies.slice(cookies.search("=") + 1, cookies.length);
 
     // set current highscore
@@ -93,7 +91,6 @@ $(function(){
                 if (wpm > highscore) {
                     highscore = wpm;
                     cookies = `highscore=${highscore}`;
-                    console.log(cookies);
 
                     // update bottom display
                     highscoreDisplay.text(highscore);
