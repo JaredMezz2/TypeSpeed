@@ -1,6 +1,6 @@
 # TypeSpeed
 Typing Speed Test
-https://typespeed.jaredmezz.com/
+https://type.jaredmezz.com/
 
 - HTML/CSS
 - JQuery/Javascript
